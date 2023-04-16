@@ -1,0 +1,154 @@
+<mvc:View controllerName="clinicianmockui.controller.List"
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    displayBlock="true">
+
+
+<Page id="page" title="{i18n>title}">
+        <content>
+            <VBox id="VBox" fitContainer="true">
+
+                    <!-- <smartFilterBar:SmartFilterBar
+                        id="smartFilterBar"
+                        entitySet="Users"
+                        persistencyKey="SmartFilter_Explored"
+                        enableBasicSearch="false" >
+                        <smartFilterBar:controlConfiguration>
+                            <smartFilterBar:ControlConfiguration id="sfbCCFirstName" key="firstName" />
+                            <smartFilterBar:ControlConfiguration id="sfbCCLastName" key="lastName" />
+                        </smartFilterBar:controlConfiguration>
+                        <smartFilterBar:layoutData>
+                            <FlexItemData id="FlexItemDataFilter" shrinkFactor="0"/>
+                        </smartFilterBar:layoutData>
+                    </smartFilterBar:SmartFilterBar> -->
+
+                    <smartTable:SmartTable
+                        id="LineItemsSmartTable"
+                        entitySet="Users"
+                        smartFilterId="smartFilterBar"
+                        tableType="Table"
+                        useVariantManagement="true"
+                        useTablePersonalisation="true"
+                        header="Patients"
+                        showRowCount="true"
+                        persistencyKey="SmartTableAnalytical_Explored"
+                        enableAutoBinding="true"
+                        class="sapUiResponsiveContentPadding"
+                        enableAutoColumnWidth="true"
+                        editTogglable="false"
+                        editable="false"
+                        app:useSmartToggle="true">
+                    <!-- layout data used to make the table growing but the filter bar fixed -->
+                    <smartTable:layoutData>
+                        <FlexItemData id="FlextItemData" growFactor="1" baseSize="0%"/>
+                    </smartTable:layoutData>
+
+
+					<!-- <Table
+						id="table"
+						selectionChange="onRowSelect"
+						sticky="ColumnHeaders,HeaderToolbar">
+
+                        <items>
+                            <ColumnListItem id="ColumnListItem" press=".onPress" type="Navigation" />
+                        </items>
+
+                    </Table> -->
+
+					<Table
+						id="table"
+						selectionChange="onRowSelect"
+						sticky="ColumnHeaders,HeaderToolbar">
+                        <columns>
+                                <Column
+                                    id="FirstNameColumn"
+                                    hAlign="Begin">
+                                    <customData>
+                                        <core:CustomData
+                                            key="p13nData"
+                                            value='\{
+                                                "columnKey": "firstName", 
+                                                "autoColumnWidth": "true", 
+                                                "maxLength": 20,
+                                                "leadingProperty": "firstName", 
+                                                "sortProperty": "firstName", 
+                                                "filterProperty": "firstName"}'
+                                        />
+                                    </customData>
+                                    <Text text="First Name" />
+                                </Column>
+                                <Column
+                                    id="LastNameColumn"
+                                    hAlign="Begin">
+                                    <customData>
+                                        <core:CustomData
+                                            key="p13nData"
+                                            value='\{
+                                                "columnKey": "lastName", 
+                                                "autoColumnWidth": "true", 
+                                                "maxLength": 50,
+                                                "leadingProperty": "lastName", 
+                                                "sortProperty": "lastName", 
+                                                "filterProperty": "lastName"}'
+                                        />
+                                    </customData>
+                                    <Text text="Last Name" />
+                                </Column>
+                                <Column
+                                    id="DateOfBirthColumn"
+                                    hAlign="Begin">
+                                    <customData>
+                                        <core:CustomData
+                                            key="p13nData"
+                                            value='\{
+                                                "columnKey": "dateOfBirth", 
+                                                "autoColumnWidth": "true", 
+                                                "maxLength": 50,
+                                                "leadingProperty": "dateOfBirth", 
+                                                "sortProperty": "dateOfBirth", 
+                                                "filterProperty": "dateOfBirth"}'
+                                        />
+                                    </customData>
+                                    <Text text="Date of Birth" />
+                                </Column>
+                                <Column
+                                    id="ContactNumberColumn"
+                                    hAlign="Begin">
+                                    <customData>
+                                        <core:CustomData
+                                            key="p13nData"
+                                            value='\{
+                                                "columnKey": "contactNumber", 
+                                                "autoColumnWidth": "true", 
+                                                "maxLength": 100,
+                                                "leadingProperty": "contactNumber", 
+                                                "sortProperty": "contactNumber", 
+                                                "filterProperty": "contactNumber"}'
+                                        />
+                                    </customData>
+                                    <Text text="Contact Number" />
+                                </Column>
+                        </columns>
+                    <items>
+					    <ColumnListItem id="ColumnListItem" press=".onPress" type="Navigation">
+						    <cells>
+								<Text text="{firstName}"/>
+                                <Text text="{lastName}"/>
+                                <Text text="{parts: ['dateOfBirth'],formatter: '.formatter.formatDate'}"/>
+                                <Text text="{contactNumber}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+                    </Table>
+
+
+                </smartTable:SmartTable>
+            </VBox>
+        </content>
+    </Page>
+
+</mvc:View>

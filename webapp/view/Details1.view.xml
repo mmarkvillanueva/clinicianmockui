@@ -1,0 +1,44 @@
+<mvc:View controllerName="clinicianmockui.controller.Details"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:unified="sap.ui.unified"
+    displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content>
+
+            <SinglePlanningCalendar
+                id="SPC"
+                class="sapUiSmallMarginTop"
+                title= "My Calendar"
+                startDate="{path: '/startDate'}"
+                appointments = "{path: '/appointments'}"
+            >
+			
+                    <views>
+                        <SinglePlanningCalendarWeekView id="WeekView" key="WeekView" title="Week" />
+                        <SinglePlanningCalendarMonthView id="MonthView" key="MonthView" title="Month" />
+                    </views>
+
+                <appointments>
+                    <!-- <unified:CalendarAppointment
+                        title= "{title}"
+                        text= "{text}"
+                        type= "{type}"
+                        icon= "{icon}"
+                        startDate= "{startDate}"
+                        endDate= "{endDate}">
+                    </unified:CalendarAppointment> -->
+                    <unified:CalendarAppointment
+                        id="calendarAppointment"
+                        startDate="{startDate}"
+                        endDate= "{endDate}">
+                        <unified:customContent>
+                            <Text text="Text 1" />
+                        </unified:customContent>
+                    </unified:CalendarAppointment>
+                </appointments>
+		    </SinglePlanningCalendar>
+        </content>
+    </Page>
+</mvc:View>

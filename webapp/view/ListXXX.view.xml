@@ -1,0 +1,89 @@
+<mvc:View controllerName="clinicianmockui.controller.List"
+    xmlns:mvc="sap.ui.core.mvc"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:semantic="sap.f.semantic"
+    displayBlock="true">
+
+	<semantic:SemanticPage
+		id="page"
+		headerPinnable="false"
+		toggleHeaderOnTitleClick="false"
+	>
+
+    <semantic:headerContent>
+                    <smartFilterBar:SmartFilterBar
+                        id="smartFilterBar"
+                        entitySet="Users"
+                        persistencyKey="SmartFilter_Explored"
+                        enableBasicSearch="false" >
+                        <smartFilterBar:controlConfiguration>
+                            <smartFilterBar:ControlConfiguration id="sfbCCFirstName" key="firstName" />
+                            <smartFilterBar:ControlConfiguration id="sfbCCLastName" key="lastName" />
+                        </smartFilterBar:controlConfiguration>
+                        <smartFilterBar:layoutData>
+                            <FlexItemData id="FlexItemDataFilter" shrinkFactor="0"/>
+                        </smartFilterBar:layoutData>
+                    </smartFilterBar:SmartFilterBar>
+
+    </semantic:headerContent>
+
+<semantic:content>
+
+                    <smartTable:SmartTable
+                        id="LineItemsSmartTable"
+                        entitySet="Users"
+                        smartFilterId="smartFilterBar"
+                        tableType="Table"
+                        useVariantManagement="true"
+                        useTablePersonalisation="true"
+                        header="Patients"
+                        showRowCount="true"
+                        persistencyKey="SmartTableAnalytical_Explored"
+                        enableAutoBinding="false"
+                        class="sapUiResponsiveContentPadding"
+                        enableAutoColumnWidth="true"
+                        editTogglable="false"
+                        editable="false"
+                        app:useSmartToggle="true"
+                    >
+                    <!-- layout data used to make the table growing but the filter bar fixed -->
+                    <smartTable:layoutData>
+                        <FlexItemData id="FlextItemData" growFactor="1" baseSize="0%"/>
+                    </smartTable:layoutData>
+
+					<Table
+						id="table"
+						selectionChange="onRowSelect"
+						sticky="ColumnHeaders,HeaderToolbar">
+
+                        <items>
+                            <ColumnListItem id="ColumnListItem" press=".onPress" type="Navigation" />
+                        </items>
+
+                    </Table>
+
+                </smartTable:SmartTable>
+
+</semantic:content>
+
+    </semantic:SemanticPage>
+
+
+    <!-- <Page id="page" >
+        <content>
+
+            <VBox id="VBox" fitContainer="true">
+
+
+
+
+
+            </VBox>
+
+        </content>
+    </Page> -->
+</mvc:View>

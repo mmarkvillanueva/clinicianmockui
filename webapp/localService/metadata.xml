@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+    <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema Namespace="CatalogService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="Sales" EntityType="CatalogService.Sales"/>
+        <EntitySet Name="Users" EntityType="CatalogService.Users"/>
+        <EntitySet Name="Actions" EntityType="CatalogService.Actions">
+          <NavigationPropertyBinding Path="userId" Target="Users"/>
+        </EntitySet>
+      </EntityContainer>
+      <EntityType Name="Sales">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="region" Type="Edm.String" MaxLength="100"/>
+        <Property Name="country" Type="Edm.String" MaxLength="100"/>
+        <Property Name="org" Type="Edm.String" MaxLength="4"/>
+        <Property Name="amount" Type="Edm.Int32"/>
+        <Property Name="comments" Type="Edm.String" MaxLength="100"/>
+        <Property Name="criticality" Type="Edm.Int32"/>
+      </EntityType>
+      <EntityType Name="Users">
+        <Key>
+          <PropertyRef Name="userId"/>
+        </Key>
+        <Property Name="userId" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="organizationId" Type="Edm.Guid"/>
+        <Property Name="userTypeId" Type="Edm.Guid"/>
+        <Property Name="parentId" Type="Edm.Guid"/>
+        <Property Name="firstName" Type="Edm.String" MaxLength="100"/>
+        <Property Name="lastName" Type="Edm.String" MaxLength="100"/>
+        <Property Name="dateOfBirth" Type="Edm.Date"/>
+        <Property Name="contactNumber" Type="Edm.String" MaxLength="50"/>
+      </EntityType>
+      <EntityType Name="Actions">
+        <Key>
+          <PropertyRef Name="actionId"/>
+        </Key>
+        <Property Name="actionId" Type="Edm.Guid" Nullable="false"/>
+        <NavigationProperty Name="userId" Type="CatalogService.Users">
+          <ReferentialConstraint Property="userId_userId" ReferencedProperty="userId"/>
+        </NavigationProperty>
+        <Property Name="userId_userId" Type="Edm.Guid"/>
+        <Property Name="actionValue" Type="Edm.String"/>
+        <Property Name="actionDate" Type="Edm.Date"/>
+        <Property Name="actionTime" Type="Edm.TimeOfDay"/>
+        <Property Name="predictedActionResult" Type="Edm.String"/>
+        <Property Name="predictionDate" Type="Edm.Date"/>
+        <Property Name="predictionTime" Type="Edm.TimeOfDay"/>
+        <Property Name="actualActionResult" Type="Edm.String"/>
+        <Property Name="actualActionDate" Type="Edm.Date"/>
+        <Property Name="actualActionTime" Type="Edm.TimeOfDay"/>
+      </EntityType>
+      <Action Name="boost" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="CatalogService.Sales"/>
+        <ReturnType Type="CatalogService.Sales"/>
+      </Action>
+      <Annotations Target="CatalogService.Users">
+        <Annotation Term="UI.SelectionFields">
+          <Collection>
+            <PropertyPath>firstName</PropertyPath>
+            <PropertyPath>lastName</PropertyPath>
+            <PropertyPath>contactNumber</PropertyPath>
+          </Collection>
+        </Annotation>
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="firstName"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="lastName"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="dateOfBirth"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="contactNumber"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="CatalogService.Users/userId">
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Users/firstName">
+        <Annotation Term="Common.Label" String="First Name"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Users/lastName">
+        <Annotation Term="Common.Label" String="Last Name"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Users/dateOfBirth">
+        <Annotation Term="Common.Label" String="Date of Birth"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Users/contactNumber">
+        <Annotation Term="Common.Label" String="Contact Number"/>
+      </Annotations>
+      <Annotations Target="CatalogService.Actions/actionId">
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
